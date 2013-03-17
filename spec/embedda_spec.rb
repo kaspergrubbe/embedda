@@ -12,6 +12,11 @@ describe "Embedda" do
       expect(story).to eq(@embed_string)
     end
 
+    it "should embed when text have a link with feature_embed" do
+      story = "http://www.youtube.com/watch?feature=player_embedded&v=dQw4w9WgXcQ".embedda
+      expect(story).to eq(@embed_string)
+    end
+
     it "should embed when also other text is present around link" do
       story = "Hello, my name is Kasper: http://www.youtube.com/watch?v=dQw4w9WgXcQ <br/>And I am embedding links".embedda
       expect(story).to eq("Hello, my name is Kasper: #{@embed_string} <br/>And I am embedding links")
@@ -25,6 +30,11 @@ describe "Embedda" do
     it "should embed when also other text is present around anchor tag" do
       story = "Hello, my name is Kasper: <a href=\"http://www.youtube.com/watch?v=dQw4w9WgXcQ\">Look here for HalfLife3!</a> <br/>And I am embedding links".embedda
       expect(story).to eq("Hello, my name is Kasper: #{@embed_string} <br/>And I am embedding links")
+    end
+
+    it "should embed when content is around the link" do
+      story = "\n\nMy suggestions for getting ready for the dreadful monday we all hate:\n\nhttp://www.youtube.com/watch?feature=player_embedded&v=dQw4w9WgXcQ\n\n".embedda
+      expect(story).to eq("\n\nMy suggestions for getting ready for the dreadful monday we all hate:\n\n#{@embed_string}\n\n")
     end
   end
 
