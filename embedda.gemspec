@@ -14,5 +14,8 @@ Gem::Specification.new do |gem|
   gem.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
   gem.require_paths = ["lib"]
 
-  #gem.add_runtime_dependency 'bundler'
+  add_development_dependency 'bundler'
+  add_development_dependency 'rake'
+  add_development_dependency 'pry'
+  add_development_dependency 'rspec'
 end
