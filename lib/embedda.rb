@@ -18,8 +18,8 @@ class String
   end
 
   def vimeo_replace(compiled)
-    compiled.gsub!(/<a[^>]*?vimeo\.com\/(\d+).*?<\/a>/, vimeo_player("\\1"))
-    compiled.gsub!(/[http|https]+:\/\/(?:www\.)?vimeo\.com\/(\d+)\S*/, vimeo_player("\\1"))
+    compiled.gsub!(/<a[^>]*?vimeo\.com\/(\d+).*?<\/a>/i, vimeo_player("\\1"))
+    compiled.gsub!(/[http|https]+:\/\/(?:www\.)?vimeo\.com\/(\d+)\S*/i, vimeo_player("\\1"))
 
     return compiled
   end
