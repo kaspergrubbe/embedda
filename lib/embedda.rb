@@ -9,7 +9,7 @@ class String
  private
   def youtube_replace(compiled)
     compiled.gsub!(/<a[^>]*?youtube\.com\/watch\?v=([a-zA-Z0-9\-\_]+).*?<\/a>/i, youtube_player("\\1"))
-    compiled.gsub!(/[http|https]+:\/\/(?:www\.)?youtube\.com\/watch\?v=([a-zA-Z0-9\-\_]+)\S*/i, youtube_player("\\1"))
+    compiled.gsub!(/[http|https]+:\/\/(?:www\.)?youtube\.com\/watch\?v=([a-zA-Z0-9\-\_]+)\w*/i, youtube_player("\\1"))
 
     return compiled
   end
@@ -19,7 +19,7 @@ class String
 
   def vimeo_replace(compiled)
     compiled.gsub!(/<a[^>]*?vimeo\.com\/(\d+).*?<\/a>/i, vimeo_player("\\1"))
-    compiled.gsub!(/[http|https]+:\/\/(?:www\.)?vimeo\.com\/(\d+)\S*/i, vimeo_player("\\1"))
+    compiled.gsub!(/[http|https]+:\/\/(?:www\.)?vimeo\.com\/(\d+)\w*/i, vimeo_player("\\1"))
 
     return compiled
   end
