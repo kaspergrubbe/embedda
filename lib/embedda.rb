@@ -1,7 +1,14 @@
 class String
-  def embedda
-    compiled = youtube_replace(self)
-    compiled = vimeo_replace(compiled)
+  def embedda(options = {})
+    options = {:filters => [:youtube, :vimeo]}.merge(options)
+
+    # Make sure that filters is an array because we allow the short form of
+    # "hello".embedda(:filters => :youtube) instead of "hello".embedda(:filters => [:youtube])
+    options[:filters] = Array(options[:filters])
+
+    compiled = self
+    compiled = youtube_replace(compiled) if options[:filters].include?(:youtube)
+    compiled = vimeo_replace(compiled)   if options[:filters].include?(:vimeo)
 
     return compiled
   end

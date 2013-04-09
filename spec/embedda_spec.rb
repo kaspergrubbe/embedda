@@ -36,6 +36,16 @@ describe "Embedda" do
       story = "\n\nMy suggestions for getting ready for the dreadful monday we all hate:\n\nhttp://www.youtube.com/watch?v=dQw4w9WgXcQ\n\n".embedda
       expect(story).to eq("\n\nMy suggestions for getting ready for the dreadful monday we all hate:\n\n#{@embed_string}\n\n")
     end
+
+    it "should embed when enabled" do
+      story = "Hello, my name is Kasper: <b><a href=\"http://www.youtube.com/watch?v=dQw4w9WgXcQ\">Look here for HalfLife3!</a><br/></b>And I am embedding links".embedda(:filters => :youtube)
+      expect(story).to eq("Hello, my name is Kasper: <b>#{@embed_string}<br/></b>And I am embedding links")
+    end
+
+    it "should not embed when disabled" do
+      story = "Hello, my name is Kasper: <b><a href=\"http://www.youtube.com/watch?v=dQw4w9WgXcQ\">Look here for HalfLife3!</a><br/></b>And I am embedding links".embedda(:filters => :vimeo)
+      expect(story).to eq("Hello, my name is Kasper: <b><a href=\"http://www.youtube.com/watch?v=dQw4w9WgXcQ\">Look here for HalfLife3!</a><br/></b>And I am embedding links")
+    end
   end
 
   context "Vimeo-link" do
@@ -62,5 +72,16 @@ describe "Embedda" do
       story = "Hello, my name is Kasper: <a href=\"http://vimeo.com/20241459\">Look here for HalfLife3!</a><br/>And I am embedding links".embedda
       expect(story).to eq("Hello, my name is Kasper: #{@embed_string}<br/>And I am embedding links")
     end
+
+    it "should embed when enabled" do
+      story = "Hello, my name is Kasper: <a href=\"http://vimeo.com/20241459\">Look here for HalfLife3!</a><br/>And I am embedding links".embedda(:filters => :vimeo)
+      expect(story).to eq("Hello, my name is Kasper: #{@embed_string}<br/>And I am embedding links")
+    end
+
+    it "should not embed when disabled" do
+      story = "Hello, my name is Kasper: <a href=\"http://vimeo.com/20241459\">Look here for HalfLife3!</a><br/>And I am embedding links".embedda(:filters => :youtube)
+      expect(story).to eq("Hello, my name is Kasper: <a href=\"http://vimeo.com/20241459\">Look here for HalfLife3!</a><br/>And I am embedding links")
+    end
+
   end
 end
