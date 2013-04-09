@@ -6,8 +6,9 @@ class String
     # "hello".embedda(:filters => :youtube) instead of "hello".embedda(:filters => [:youtube])
     options[:filters] = Array(options[:filters])
 
-    compiled = youtube_replace(self)   if options[:filters].include?(:youtube)
-    compiled = vimeo_replace(compiled) if options[:filters].include?(:vimeo)
+    compiled = self
+    compiled = youtube_replace(compiled) if options[:filters].include?(:youtube)
+    compiled = vimeo_replace(compiled)   if options[:filters].include?(:vimeo)
 
     return compiled
   end
