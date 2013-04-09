@@ -40,6 +40,13 @@ This is the default behavoir:
 => "String heheh <iframe width=\"560\" height=\"315\" src=\"http://www.youtube.com/embed/BVtYSy83XXw\" frameborder=\"0\" allowfullscreen></iframe> yeah"
 ```
 
+## Support embeds
+
+Currently embedda can embed the following formats:
+
+* Youtube
+* Vimeo
+
 ## Links
 
 Rubygems: https://rubygems.org/gems/embedda
