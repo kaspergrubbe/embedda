@@ -46,6 +46,7 @@ Currently embedda can embed the following formats:
 
 * Youtube
 * Vimeo
+* Soundcloud
 
 ## Links
 
