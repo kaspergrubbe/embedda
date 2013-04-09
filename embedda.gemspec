@@ -3,8 +3,8 @@ $:.push File.expand_path("../lib", __FILE__)
 
 Gem::Specification.new do |gem|
   gem.name        = "embedda"
-  gem.version     = '0.0.2'
-  gem.authors     = ["Kasper Grubbe"]
+  gem.version     = '0.0.3'
+  gem.authors     = ["Kasper Grubbe",'Christian Takle']
   gem.email       = ["kaspergrubbe@gmail.com"]
   gem.homepage    = "http://github.com/kaspergrubbe/embedda"
   gem.summary     = %q{Embed content strings in your strings, and turn it to embed HTML!}
