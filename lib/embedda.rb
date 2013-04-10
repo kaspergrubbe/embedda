@@ -18,8 +18,8 @@ class String
 
  private
   def youtube_replace(compiled)
-    compiled.gsub!(/<a[^>]*?youtube\.com\/watch\?v=([a-zA-Z0-9\-\_]+).*?<\/a>/i, youtube_player("\\1"))
-    compiled.gsub!(/[http|https]+:\/\/(?:www\.)?youtube\.com\/watch\?v=([a-zA-Z0-9\-\_]+)\w*/i, youtube_player("\\1"))
+    compiled.gsub!(/(<a[^>]*?youtube\.com\/watch\?v=([a-zA-Z0-9\-\_]+).*?<\/a>)/i) { |m| youtube_player($2) }
+    compiled.gsub!(/([http|https]+:\/\/(?:www\.)?youtube\.com\/watch\?v=([a-zA-Z0-9\-\_]+)\w*)/i) { |m| youtube_player($2) }
 
     return compiled
   end
@@ -28,8 +28,8 @@ class String
   end
 
   def vimeo_replace(compiled)
-    compiled.gsub!(/<a[^>]*?vimeo\.com\/(\d+).*?<\/a>/i, vimeo_player("\\1"))
-    compiled.gsub!(/[http|https]+:\/\/(?:www\.)?vimeo\.com\/(\d+)\w*/i, vimeo_player("\\1"))
+    compiled.gsub!(/(<a[^>]*?vimeo\.com\/(\d+).*?<\/a>)/i) { |m| vimeo_player($2) }
+    compiled.gsub!(/([http|https]+:\/\/(?:www\.)?vimeo\.com\/(\d+)\w*)/i) { |m| vimeo_player($2) }
 
     return compiled
   end
@@ -39,11 +39,10 @@ class String
 
   def soundcloud_replace(compiled)
     r = /(https?:\/\/(?:www.)?soundcloud.com\/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)*(?!\/sets(?:\/|$))(?:\/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)*){1,2}\/?)/i
-    compiled.gsub!(r) { |match| soundcloud_player(match) }
+    compiled.gsub!(r) { |m| soundcloud_player(m) }
 
     return compiled
   end
-
   def soundcloud_player(token)
     url_encoded_string = CGI::escape(token)
 
