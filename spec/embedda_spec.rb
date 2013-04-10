@@ -18,17 +18,17 @@ describe "Embedda" do
     end
 
     it "should embed when also other text is present around link" do
-      story = "Hello, my name is Kasper: http://www.youtube.com/watch?v=dQw4w9WgXcQ<br/>And I am embedding links".embedda
+      story = 'Hello, my name is Kasper: http://www.youtube.com/watch?v=dQw4w9WgXcQ<br/>And I am embedding links'.embedda
       expect(story).to eq("Hello, my name is Kasper: #{@embed_string}<br/>And I am embedding links")
     end
 
     it "should embed when text include anchor tag to Youtube" do
-      story = "<a href=\"http://www.youtube.com/watch?v=dQw4w9WgXcQ\">Look here for HalfLife3!</a>".embedda
+      story = '<a href="http://www.youtube.com/watch?v=dQw4w9WgXcQ">Look here for HalfLife3!</a>'.embedda
       expect(story).to eq(@embed_string)
     end
 
     it "should embed when also other text is present around anchor tag" do
-      story = "Hello, my name is Kasper: <b><a href=\"http://www.youtube.com/watch?v=dQw4w9WgXcQ\">Look here for HalfLife3!</a><br/></b>And I am embedding links".embedda
+      story = 'Hello, my name is Kasper: <b><a href="http://www.youtube.com/watch?v=dQw4w9WgXcQ">Look here for HalfLife3!</a><br/></b>And I am embedding links'.embedda
       expect(story).to eq("Hello, my name is Kasper: <b>#{@embed_string}<br/></b>And I am embedding links")
     end
 
@@ -38,19 +38,19 @@ describe "Embedda" do
     end
 
     it "should embed when enabled" do
-      story = "Hello, my name is Kasper: <b><a href=\"http://www.youtube.com/watch?v=dQw4w9WgXcQ\">Look here for HalfLife3!</a><br/></b>And I am embedding links".embedda(:filters => :youtube)
+      story = 'Hello, my name is Kasper: <b><a href="http://www.youtube.com/watch?v=dQw4w9WgXcQ">Look here for HalfLife3!</a><br/></b>And I am embedding links'.embedda(:filters => :youtube)
       expect(story).to eq("Hello, my name is Kasper: <b>#{@embed_string}<br/></b>And I am embedding links")
     end
 
     it "should not embed when disabled" do
-      story = "Hello, my name is Kasper: <b><a href=\"http://www.youtube.com/watch?v=dQw4w9WgXcQ\">Look here for HalfLife3!</a><br/></b>And I am embedding links".embedda(:filters => :vimeo)
-      expect(story).to eq("Hello, my name is Kasper: <b><a href=\"http://www.youtube.com/watch?v=dQw4w9WgXcQ\">Look here for HalfLife3!</a><br/></b>And I am embedding links")
+      story = 'Hello, my name is Kasper: <b><a href="http://www.youtube.com/watch?v=dQw4w9WgXcQ">Look here for HalfLife3!</a><br/></b>And I am embedding links'.embedda(:filters => :vimeo)
+      expect(story).to eq('Hello, my name is Kasper: <b><a href="http://www.youtube.com/watch?v=dQw4w9WgXcQ">Look here for HalfLife3!</a><br/></b>And I am embedding links')
     end
   end
 
   context "Vimeo-link" do
     before(:all) do
-      @embed_string = "<iframe src=\"http://player.vimeo.com/video/20241459\" width=\"500\" height=\"281\" frameborder=\"0\" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>"
+      @embed_string = '<iframe src="http://player.vimeo.com/video/20241459" width="500" height="281" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>'
     end
 
     it "should embed when text have a link" do
@@ -59,35 +59,35 @@ describe "Embedda" do
     end
 
     it "should embed when also other text is present around link" do
-      story = "Hello, my name is Kasper: http://vimeo.com/20241459<br/>And I am embedding links".embedda
+      story = 'Hello, my name is Kasper: http://vimeo.com/20241459<br/>And I am embedding links'.embedda
       expect(story).to eq("Hello, my name is Kasper: #{@embed_string}<br/>And I am embedding links")
     end
 
     it "should embed when text include anchor tag to Vimeo" do
-      story = "<a href=\"http://vimeo.com/20241459\">Look here for HalfLife3!</a>".embedda
+      story = '<a href="http://vimeo.com/20241459">Look here for HalfLife3!</a>'.embedda
       expect(story).to eq(@embed_string)
     end
 
     it "should embed when also other text is present around anchor tag" do
-      story = "Hello, my name is Kasper: <a href=\"http://vimeo.com/20241459\">Look here for HalfLife3!</a><br/>And I am embedding links".embedda
+      story = 'Hello, my name is Kasper: <a href="http://vimeo.com/20241459">Look here for HalfLife3!</a><br/>And I am embedding links'.embedda
       expect(story).to eq("Hello, my name is Kasper: #{@embed_string}<br/>And I am embedding links")
     end
 
     it "should embed when enabled" do
-      story = "Hello, my name is Kasper: <a href=\"http://vimeo.com/20241459\">Look here for HalfLife3!</a><br/>And I am embedding links".embedda(:filters => :vimeo)
+      story = 'Hello, my name is Kasper: <a href="http://vimeo.com/20241459">Look here for HalfLife3!</a><br/>And I am embedding links'.embedda(:filters => :vimeo)
       expect(story).to eq("Hello, my name is Kasper: #{@embed_string}<br/>And I am embedding links")
     end
 
     it "should not embed when disabled" do
-      story = "Hello, my name is Kasper: <a href=\"http://vimeo.com/20241459\">Look here for HalfLife3!</a><br/>And I am embedding links".embedda(:filters => :youtube)
-      expect(story).to eq("Hello, my name is Kasper: <a href=\"http://vimeo.com/20241459\">Look here for HalfLife3!</a><br/>And I am embedding links")
+      story = 'Hello, my name is Kasper: <a href="http://vimeo.com/20241459">Look here for HalfLife3!</a><br/>And I am embedding links'.embedda(:filters => :youtube)
+      expect(story).to eq('Hello, my name is Kasper: <a href="http://vimeo.com/20241459">Look here for HalfLife3!</a><br/>And I am embedding links')
     end
   end
 
   context "Soundcloud-link" do
     before(:all) do
-      @embed_string = "<iframe width=\"100%\" height=\"166\" scrolling=\"no\" frameborder=\"no\" src=\"https://w.soundcloud.com/player/?url=https%3A%2F%2Fsoundcloud.com%2Fflume-1%2Fflume-left-alone-bobby-tank&color=ff6600&amp;auto_play=false&amp;show_artwork=false\"></iframe>"
-      @link         = "https://soundcloud.com/flume-1/flume-left-alone-bobby-tank"
+      @embed_string = '<iframe width="100%" height="166" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A%2F%2Fsoundcloud.com%2Fflume-1%2Fflume-left-alone-bobby-tank&color=ff6600&amp;auto_play=false&amp;show_artwork=false"></iframe>'
+      @link         = 'https://soundcloud.com/flume-1/flume-left-alone-bobby-tank'
     end
 
     it "should embed when text have a link" do
@@ -116,11 +116,11 @@ describe "Embedda" do
       @youtube      = '<iframe width="560" height="315" src="http://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allowfullscreen></iframe>'
       @youtube_link = 'http://www.youtube.com/watch?v=dQw4w9WgXcQ'
 
-      @vimeo      = "<iframe src=\"http://player.vimeo.com/video/20241459\" width=\"500\" height=\"281\" frameborder=\"0\" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>"
+      @vimeo      = '<iframe src="http://player.vimeo.com/video/20241459" width="500" height="281" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>'
       @vimeo_link = 'http://vimeo.com/20241459'
 
-      @soundcloud      = "<iframe width=\"100%\" height=\"166\" scrolling=\"no\" frameborder=\"no\" src=\"https://w.soundcloud.com/player/?url=https%3A%2F%2Fsoundcloud.com%2Fflume-1%2Fflume-left-alone-bobby-tank&color=ff6600&amp;auto_play=false&amp;show_artwork=false\"></iframe>"
-      @soundcloud_link = "https://soundcloud.com/flume-1/flume-left-alone-bobby-tank"
+      @soundcloud      = '<iframe width="100%" height="166" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A%2F%2Fsoundcloud.com%2Fflume-1%2Fflume-left-alone-bobby-tank&color=ff6600&amp;auto_play=false&amp;show_artwork=false"></iframe>'
+      @soundcloud_link = 'https://soundcloud.com/flume-1/flume-left-alone-bobby-tank'
     end
 
     it "should show two youtube embeds" do
