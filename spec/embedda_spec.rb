@@ -110,4 +110,38 @@ describe "Embedda" do
       expect(story).to eq("Hello, my name is Takle: #{@link}<br/>And I am not embedding links")
     end
   end
+
+  context "All embeds in one string" do
+    before(:all) do
+      @youtube      = '<iframe width="560" height="315" src="http://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allowfullscreen></iframe>'
+      @youtube_link = 'http://www.youtube.com/watch?v=dQw4w9WgXcQ'
+
+      @vimeo      = "<iframe src=\"http://player.vimeo.com/video/20241459\" width=\"500\" height=\"281\" frameborder=\"0\" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>"
+      @vimeo_link = 'http://vimeo.com/20241459'
+
+      @soundcloud      = "<iframe width=\"100%\" height=\"166\" scrolling=\"no\" frameborder=\"no\" src=\"https://w.soundcloud.com/player/?url=https%3A%2F%2Fsoundcloud.com%2Fflume-1%2Fflume-left-alone-bobby-tank&color=ff6600&amp;auto_play=false&amp;show_artwork=false\"></iframe>"
+      @soundcloud_link = "https://soundcloud.com/flume-1/flume-left-alone-bobby-tank"
+    end
+
+    it "should show two youtube embeds" do
+      story = "#{@youtube_link} #{@youtube_link}".embedda
+      expect(story).to eq("#{@youtube} #{@youtube}")
+    end
+
+    it "should show two vimeo embeds" do
+      story = "#{@vimeo_link} #{@vimeo_link}".embedda
+      expect(story).to eq("#{@vimeo} #{@vimeo}")
+    end
+
+    it "should show two soundcloud embeds" do
+      story = "#{@soundcloud_link} #{@soundcloud_link}".embedda
+      expect(story).to eq("#{@soundcloud} #{@soundcloud}")
+    end
+
+    it "should show all the embeds in the story" do
+      story = "#{@youtube_link} #{@vimeo_link} #{@soundcloud_link}".embedda
+      expect(story).to eq("#{@youtube} #{@vimeo} #{@soundcloud}")
+    end
+  end
+
 end
