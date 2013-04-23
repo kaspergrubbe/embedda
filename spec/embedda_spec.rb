@@ -14,7 +14,8 @@ describe Embedda do
 
     it "should embed when text have a link with feature_embed" do
       @story = "http://www.youtube.com/watch?feature=player_embedded&v=dQw4w9WgXcQ"
-#      expect(story).to eq(embed_string)
+      pending
+      expect(embedda).to eq(embed_string)
     end
 
     it "should embed when also other text is present around link" do
