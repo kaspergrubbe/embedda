@@ -143,4 +143,11 @@ describe Embedda do
     end
   end
 
+  context "Unkown filter" do
+    it "should refuse to embed when unknown filter passed" do
+      story = "http://www.youtube.com/watch?v=dQw4w9WgXcQ"
+      expect { described_class.new(story, :filters => [:dummy]).embed }.to raise_error(Embedda::UnknownFilter)
+    end
+  end
+
 end
