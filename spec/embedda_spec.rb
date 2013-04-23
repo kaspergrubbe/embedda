@@ -150,4 +150,11 @@ describe Embedda do
     end
   end
 
+  context "Empty string" do
+    it "should return empty string" do
+      @story = ""
+      expect(embedda).to eq("")
+    end
+  end
+
 end
