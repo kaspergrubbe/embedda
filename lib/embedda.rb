@@ -1,22 +1,32 @@
 require 'cgi'
 
-class String
-  def embedda(options = {})
-    options = {:filters => [:youtube, :vimeo, :soundcloud]}.merge(options)
-
-    # Make sure that filters is an array because we allow the short form of
-    # "hello".embedda(:filters => :youtube) instead of "hello".embedda(:filters => [:youtube])
-    options[:filters] = Array(options[:filters])
-
-    compiled = self
-    compiled = youtube_replace(compiled)    if options[:filters].include?(:youtube)
-    compiled = vimeo_replace(compiled)      if options[:filters].include?(:vimeo)
-    compiled = soundcloud_replace(compiled) if options[:filters].include?(:soundcloud)
-
-    return compiled
+class Embedda
+  class UnknownFilter < StandardError
+    def initialize(name)
+      super "Unknown filter #{name}"
+    end
   end
 
- private
+  def initialize(string, options = {})
+    options  = {:filters => [:youtube, :vimeo, :soundcloud]}.merge(options)
+    @filters = Array(options[:filters])
+    @string  = string
+  end
+
+  def embed
+    return if @string.to_s.empty?
+    @filters.each do |filter_name|
+      begin
+        @string = send("#{filter_name}_replace", @string)
+      rescue NoMethodError
+        raise UnknownFilter.new(filter_name)
+      end
+    end
+    @string
+  end
+
+  private
+
   def youtube_replace(compiled)
     compiled.gsub!(/(<a[^>]*?youtube\.com\/watch\?v=([a-zA-Z0-9\-\_]+).*?<\/a>)/i) { |m| youtube_player($2) }
     compiled.gsub!(/([http|https]+:\/\/(?:www\.)?youtube\.com\/watch\?v=([a-zA-Z0-9\-\_]+)\w*)/i) { |m| youtube_player($2) }
