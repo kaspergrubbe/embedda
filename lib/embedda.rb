@@ -15,7 +15,7 @@ class Embedda
   end
 
   def embed
-    return @string if @string.to_s.empty?
+    return "" if @string.to_s.empty?
     @filters.each do |filter_name|
       begin
         @string = send("#{filter_name}_replace", @string)
