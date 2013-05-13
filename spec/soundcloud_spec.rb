@@ -7,8 +7,6 @@ describe Embedda do
   context "Soundcloud-link" do
     let(:embed_string) { '<iframe width="100%" height="166" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A%2F%2Fsoundcloud.com%2Fflume-1%2Fflume-left-alone-bobby-tank&color=ff6600&amp;auto_play=false&amp;show_artwork=false"></iframe>' }
     let(:link)         { 'https://soundcloud.com/flume-1/flume-left-alone-bobby-tank' }
-    let(:href_single)  { '<a href=\'https://soundcloud.com/flume-1/flume-left-alone-bobby-tank\'>Soundcloud</a>' }
-    let(:href_double)  { '<a href="https://soundcloud.com/flume-1/flume-left-alone-bobby-tank">Soundcloud</a>' }
 
     it "should embed when text have a link" do
       @story = link
@@ -30,24 +28,12 @@ describe Embedda do
       @story  = "Hello, my name is Takle: #{link}<br/>And I am not embedding links"
       embedda = described_class.new(@story, :filters => :youtube).embed
       expect(embedda).to eq("Hello, my name is Takle: #{link}<br/>And I am not embedding links")
-    end
-
-    it "should not embed inside double quote href=\"URL\"" do
-      @story  = "Hello, my name is Takle: #{href_double}<br/>And I am not embedding links"
-      expect(embedda).to_not eq("Hello, my name is Takle: <a href=\"#{embed_string}\">Soundcloud</a><br/>And I am not embedding links")
-    end
-
-    it "should not embed inside single quote href=\'URL\'" do
-      @story  = "Hello, my name is Takle: #{href_single}<br/>And I am not embedding links"
-      expect(embedda).to_not eq("Hello, my name is Takle: <a href=\'#{embed_string}\'>Soundcloud</a><br/>And I am not embedding links")
     end
   end
 
   context "Soundcloud-sets-link" do
     let(:embed_string) { '<iframe width="100%" height="166" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A%2F%2Fsoundcloud.com%2Ftekktv%2Fsets%2Fdj-mix-sets&color=ff6600&amp;auto_play=false&amp;show_artwork=false"></iframe>' }
     let(:link)         { 'https://soundcloud.com/tekktv/sets/dj-mix-sets' }
-    let(:href_single)  { '<a href=\'https://soundcloud.com/tekktv/sets/dj-mix-sets\'>Soundcloud</a>' }
-    let(:href_double)  { '<a href="https://soundcloud.com/tekktv/sets/dj-mix-sets">Soundcloud</a>' }
 
     it "should embed when text have a link" do
       @story = link
@@ -69,16 +55,6 @@ describe Embedda do
       @story  = "Hello, my name is Takle: #{link}<br/>And I am not embedding links"
       embedda = described_class.new(@story, :filters => :youtube).embed
       expect(embedda).to eq("Hello, my name is Takle: #{link}<br/>And I am not embedding links")
-    end
-
-    it "should not embed inside double quote href=\"URL\"" do
-      @story  = "Hello, my name is Takle: #{href_double}<br/>And I am not embedding links"
-      expect(embedda).to_not eq("Hello, my name is Takle: <a href=\"#{embed_string}\">Soundcloud</a><br/>And I am not embedding links")
-    end
-
-    it "should not embed inside single quote href=\'URL\'" do
-      @story  = "Hello, my name is Takle: #{href_single}<br/>And I am not embedding links"
-      expect(embedda).to_not eq("Hello, my name is Takle: <a href=\'#{embed_string}\'>Soundcloud</a><br/>And I am not embedding links")
     end
   end
 end
