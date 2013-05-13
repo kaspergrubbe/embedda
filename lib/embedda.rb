@@ -52,22 +52,29 @@ class Embedda
     # Known URL's
     #   https://soundcloud.com/:user/:tracks
     #   https://soundcloud.com/:user/sets/:tracks
-    re = / # Match Soundcloud track or sets URL
-          (                        # Capture Group
-            (?<!'|")               # Negative lookbehind assertion, prevents href matching
-            #{Regex::URL[:scheme]} # URL scheme
-            soundcloud.com\/       #
-            [A-Za-z0-9_-]+         # One or more word character, underscore and dash included
-            \/                     # slash
-            (?:sets\/)?            # Optional sets-slash                  non-capturing group
-            [A-Za-z0-9_-]+         # One or more word character, underscore and dash included
-          )
-        /ix
+    url_re = / # Match Soundcloud track or sets URL
+              (                        # Capture Group
+                #{Regex::URL[:scheme]} # URL scheme
+                soundcloud.com\/       #
+                [A-Za-z0-9_-]+         # One or more word character, underscore and dash included
+                \/                     # slash
+                (?:sets\/)?            # Optional sets-slash                  non-capturing group
+                [A-Za-z0-9_-]+         # One or more word character, underscore and dash included
+              )
+              /ix
 
-    compiled.gsub!(re) { |m| soundcloud_player(m) }
+    link_re = / # Match Soundcloud a-tag with track or sets URL
+              <a.+        # Start of HTML anchor-tag plus random characters
+                #{url_re}
+              .+<\/a>     # Random characters plus end of HTML anchor-tag
+              /ix
+
+    compiled.gsub!(link_re, '/1')                       # Substitute anchor-tags with soundcloud URL's
+    compiled.gsub!(url_re) { |m| soundcloud_player(m) } # Substitute URL's with soundcloud_player
 
     return compiled
   end
+
   def soundcloud_player(token)
     url_encoded_string = CGI::escape(token)
 
