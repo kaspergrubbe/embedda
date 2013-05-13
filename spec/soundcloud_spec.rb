@@ -60,7 +60,7 @@ describe Embedda do
     end
   end
 
-context "Soundcloud-sets-anchor-link" do
+  context "Soundcloud-sets-anchor-link" do
     let(:embed_string) { '<iframe width="100%" height="166" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A%2F%2Fsoundcloud.com%2Ftekktv%2Fsets%2Fdj-mix-sets&color=ff6600&amp;auto_play=false&amp;show_artwork=false"></iframe>' }
     let(:link)         { '<a href="https://soundcloud.com/tekktv/sets/dj-mix-sets">Soundcloud</a>' }
 
