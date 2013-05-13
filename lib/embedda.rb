@@ -69,8 +69,8 @@ class Embedda
               .+<\/a>     # Random characters plus end of HTML anchor-tag
               /ix
 
-    compiled.gsub!(link_re, '/1')                       # Substitute anchor-tags with soundcloud URL's
-    compiled.gsub!(url_re) { |m| soundcloud_player(m) } # Substitute URL's with soundcloud_player
+    compiled.gsub!(link_re) { |m| $1 }                   # Substitute anchor-tags with soundcloud URL's
+    compiled.gsub!(url_re)  { |m| soundcloud_player(m) } # Substitute URL's with soundcloud_player
 
     return compiled
   end
