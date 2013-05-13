@@ -1,4 +1,5 @@
 require 'cgi'
+require 'helpers/url_regex'
 
 class Embedda
   class UnknownFilter < StandardError
@@ -29,7 +30,7 @@ class Embedda
 
   def youtube_replace(compiled)
     compiled.gsub!(/(<a[^>]*?youtube\.com\/watch\?v=([a-zA-Z0-9\-\_]+).*?<\/a>)/i) { |m| youtube_player($2) }
-    compiled.gsub!(/([http|https]+:\/\/(?:www\.)?youtube\.com\/watch\?v=([a-zA-Z0-9\-\_]+)\w*)/i) { |m| youtube_player($2) }
+    compiled.gsub!(/(#{Regex::URL[:scheme]}youtube\.com\/watch\?v=([a-zA-Z0-9\-\_]+)\w*)/i) { |m| youtube_player($2) }
 
     return compiled
   end
@@ -39,7 +40,7 @@ class Embedda
 
   def vimeo_replace(compiled)
     compiled.gsub!(/(<a[^>]*?vimeo\.com\/(\d+).*?<\/a>)/i) { |m| vimeo_player($2) }
-    compiled.gsub!(/([http|https]+:\/\/(?:www\.)?vimeo\.com\/(\d+)\w*)/i) { |m| vimeo_player($2) }
+    compiled.gsub!(/(#{Regex::URL[:scheme]}vimeo\.com\/(\d+)\w*)/i) { |m| vimeo_player($2) }
 
     return compiled
   end
@@ -48,15 +49,36 @@ class Embedda
   end
 
   def soundcloud_replace(compiled)
-    r = /(https?:\/\/(?:www.)?soundcloud.com\/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)*(?!\/sets(?:\/|$))(?:\/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)*){1,2}\/?)/i
-    compiled.gsub!(r) { |m| soundcloud_player(m) }
+    # Known URL's
+    #   https://soundcloud.com/:user/:tracks
+    #   https://soundcloud.com/:user/sets/:tracks
+    url_re = / # Match Soundcloud track or sets URL
+              (                        # Capture Group
+                #{Regex::URL[:scheme]} # URL scheme
+                soundcloud.com\/       #
+                [A-Za-z0-9_-]+         # One or more word character, underscore and dash included
+                \/                     # slash
+                (?:sets\/)?            # Optional sets-slash                  non-capturing group
+                [A-Za-z0-9_-]+         # One or more word character, underscore and dash included
+              )
+              /ix
+
+    link_re = / # Match Soundcloud a-tag with track or sets URL
+              <a.+        # Start of HTML anchor-tag plus random characters
+                #{url_re}
+              .+<\/a>     # Random characters plus end of HTML anchor-tag
+              /ix
+
+    compiled.gsub!(link_re) { |m| $1 }                   # Substitute anchor-tags with soundcloud URL's
+    compiled.gsub!(url_re)  { |m| soundcloud_player(m) } # Substitute URL's with soundcloud_player
 
     return compiled
   end
+
   def soundcloud_player(token)
     url_encoded_string = CGI::escape(token)
 
-    # Note: added '&' ...?url=...&
+    # Note: changed ';' to '&'  ...?url=...&
     "<iframe width=\"100%\" height=\"166\" scrolling=\"no\" frameborder=\"no\" src=\"https://w.soundcloud.com/player/?url=#{url_encoded_string}&color=ff6600&amp;auto_play=false&amp;show_artwork=false\"></iframe>"
   end
 end
