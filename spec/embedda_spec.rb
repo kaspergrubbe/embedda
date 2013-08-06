@@ -53,7 +53,7 @@ describe Embedda do
 
     it 'should output a https link if ssl option is given' do
       @story = "http://www.youtube.com/watch?v=dQw4w9WgXcQ"
-      expect(described_class.new(@story).embed(ssl: true)).to eq(https_embed_string)
+      expect(described_class.new(@story, ssl: true).embed).to eq(https_embed_string)
     end
   end
 
@@ -95,7 +95,7 @@ describe Embedda do
 
     it 'should output a https link if ssl option is given' do
       @story = "http://vimeo.com/20241459"
-      expect(described_class.new(@story).embed(ssl: true)).to eq(https_embed_string)
+      expect(described_class.new(@story, ssl: true).embed).to eq(https_embed_string)
     end
   end
 
