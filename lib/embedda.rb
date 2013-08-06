@@ -10,6 +10,7 @@ class Embedda
   def initialize(string, options = {})
     options  = {:filters => [:youtube, :vimeo, :soundcloud]}.merge(options)
     @filters = Array(options[:filters])
+    @protocol = options[:ssl] ? 'https' : 'http'
     @string  = string
   end
 
@@ -34,7 +35,7 @@ class Embedda
     return compiled
   end
   def youtube_player(token)
-    "<iframe width=\"560\" height=\"315\" src=\"http://www.youtube.com/embed/#{token}\" frameborder=\"0\" allowfullscreen></iframe>"
+    "<iframe width=\"560\" height=\"315\" src=\"#{@protocol}://www.youtube.com/embed/#{token}\" frameborder=\"0\" allowfullscreen></iframe>"
   end
 
   def vimeo_replace(compiled)
@@ -44,7 +45,7 @@ class Embedda
     return compiled
   end
   def vimeo_player(token)
-    "<iframe src=\"http://player.vimeo.com/video/#{token}\" width=\"500\" height=\"281\" frameborder=\"0\" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>"
+    "<iframe src=\"#{@protocol}://player.vimeo.com/video/#{token}\" width=\"500\" height=\"281\" frameborder=\"0\" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>"
   end
 
   def soundcloud_replace(compiled)
