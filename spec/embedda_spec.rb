@@ -6,6 +6,7 @@ describe Embedda do
 
   context "Youtube-link" do
     let(:embed_string) { '<iframe width="560" height="315" src="http://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allowfullscreen></iframe>' }
+    let(:https_embed_string) { '<iframe width="560" height="315" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allowfullscreen></iframe>' }
 
     it "should embed when text have a link" do
       @story = "http://www.youtube.com/watch?v=dQw4w9WgXcQ"
@@ -49,10 +50,16 @@ describe Embedda do
       embedda = described_class.new(@story, :filters => :vimeo).embed
       expect(embedda).to eq('Hello, my name is Kasper: <b><a href="http://www.youtube.com/watch?v=dQw4w9WgXcQ">Look here for HalfLife3!</a><br/></b>And I am embedding links')
     end
+
+    it 'should output a https link if ssl option is given' do
+      @story = "http://www.youtube.com/watch?v=dQw4w9WgXcQ"
+      expect(described_class.new(@story).embed(ssl: true)).to eq(https_embed_string)
+    end
   end
 
   context "Vimeo-link" do
     let(:embed_string) { '<iframe src="http://player.vimeo.com/video/20241459" width="500" height="281" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>' }
+    let(:https_embed_string) { '<iframe src="https://player.vimeo.com/video/20241459" width="500" height="281" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>' }
 
     it "should embed when text have a link" do
       @story = "http://vimeo.com/20241459"
@@ -84,6 +91,11 @@ describe Embedda do
       @story  = 'Hello, my name is Kasper: <a href="http://vimeo.com/20241459">Look here for HalfLife3!</a><br/>And I am embedding links'
       embedda = described_class.new(@story, :filters => :youtube).embed
       expect(embedda).to eq('Hello, my name is Kasper: <a href="http://vimeo.com/20241459">Look here for HalfLife3!</a><br/>And I am embedding links')
+    end
+
+    it 'should output a https link if ssl option is given' do
+      @story = "http://vimeo.com/20241459"
+      expect(described_class.new(@story).embed(ssl: true)).to eq(https_embed_string)
     end
   end
 
