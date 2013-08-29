@@ -20,7 +20,7 @@ class Embedda
       private
 
       def player(token)
-        %Q{<iframe src="#{player_url(token)}" width="#{@width}" height="#{@height}" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>}
+        %Q{<iframe src="#{player_url(token)}" width="#{@width}"#{height_attribute} frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>}
       end
 
       def player_url(token)
@@ -29,6 +29,10 @@ class Embedda
         url.path   = "/video/#{token}"
         url.query  = Rack::Utils.build_query @vimeo_url if @vimeo_url
         url.to_s
+      end
+
+      def height_attribute
+        %Q{ height="#{@height}"} if @height
       end
     end
   end
