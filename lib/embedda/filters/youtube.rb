@@ -16,7 +16,7 @@ class Embedda
       private
 
       def player(token)
-        "<iframe width=\"560\" height=\"315\" src=\"#{@protocol}://www.youtube.com/embed/#{token}\" frameborder=\"0\" allowfullscreen></iframe>"
+        %Q{<iframe width="#{@width}" height="#{@height}" src="#{@protocol}://www.youtube.com/embed/#{token}" frameborder="0" allowfullscreen></iframe>}
       end
     end
   end

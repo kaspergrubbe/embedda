@@ -7,6 +7,7 @@ describe Embedda do
   context "Youtube-link" do
     let(:embed_string) { '<iframe width="560" height="315" src="http://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allowfullscreen></iframe>' }
     let(:https_embed_string) { embed_string.gsub("http", "https") }
+    let(:horizontal_embed_string) { embed_string.gsub("560", "200").gsub("315", "400") }
 
     it "should embed when text have a link" do
       @story = "http://www.youtube.com/watch?v=dQw4w9WgXcQ"
@@ -54,6 +55,12 @@ describe Embedda do
     it 'should output a https link if ssl option is given' do
       @story = "http://www.youtube.com/watch?v=dQw4w9WgXcQ"
       expect(described_class.new(@story, :ssl => true).embed).to eq(https_embed_string)
+    end
+
+    it 'outputs link with proper width and height' do
+      @story = "http://www.youtube.com/watch?v=dQw4w9WgXcQ"
+      embedda = described_class.new(@story, video_width: 200, video_height: 400).embed
+      expect(embedda).to eq(horizontal_embed_string)
     end
   end
 

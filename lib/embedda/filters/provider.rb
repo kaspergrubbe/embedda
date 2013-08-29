@@ -31,7 +31,7 @@ class Embedda
       end
 
       def video_width
-        options.fetch(:video_with, 560)
+        options.fetch(:video_width, 560)
       end
 
       def video_height
