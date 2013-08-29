@@ -6,7 +6,7 @@ describe Embedda do
 
   context "Youtube-link" do
     let(:embed_string) { '<iframe width="560" height="315" src="http://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allowfullscreen></iframe>' }
-    let(:https_embed_string) { '<iframe width="560" height="315" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allowfullscreen></iframe>' }
+    let(:https_embed_string) { embed_string.gsub("http", "https") }
 
     it "should embed when text have a link" do
       @story = "http://www.youtube.com/watch?v=dQw4w9WgXcQ"
