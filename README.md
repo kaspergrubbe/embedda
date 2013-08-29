@@ -54,10 +54,10 @@ You can set video width and height with proper settings:
 => "String heheh <iframe width=\"600\" height=\"300\" src=\"https://www.youtube.com/embed/BVtYSy83XXw\" frameborder=\"0\" allowfullscreen></iframe> yeah"
 ```
 
-You can set vimeo query string with `vimeo_url` option:
+You can set vimeo query string with `vimeo_params` option:
 
 ```ruby
-"http://vimeo.com/42620553".embedda(:vimeo_url => {:title => 0, :byline => 0, :portrait => 0, :color => "42b7ed"})
+"http://vimeo.com/42620553".embedda(:vimeo_params => {:title => 0, :byline => 0, :portrait => 0, :color => "42b7ed"})
 => %q{<iframe src="http://player.vimeo.com/video/20241459?title=0&byline=0&portrait=0&color=42b7ed" width="560" height="315" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>}
 ```
 
