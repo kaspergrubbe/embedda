@@ -68,6 +68,7 @@ describe Embedda do
     let(:embed_string) { '<iframe src="http://player.vimeo.com/video/20241459" width="560" height="315" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>' }
     let(:https_embed_string) { embed_string.gsub("http", "https") }
     let(:horizontal_embed_string) { embed_string.gsub("560", "200").gsub("315", "400") }
+    let(:query_string_embed) { embed_string.gsub("20241459", "20241459?title=0&byline=0&portrait=0&color=42b7ed") }
 
     it "should embed when text have a link" do
       @story = "http://vimeo.com/20241459"
@@ -110,6 +111,12 @@ describe Embedda do
       @story = "http://vimeo.com/20241459"
       embedda = described_class.new(@story, :video_width => 200, :video_height => 400).embed
       expect(embedda).to eq(horizontal_embed_string)
+    end
+
+    it 'generates iframe with query string' do
+      @story = "http://vimeo.com/20241459"
+      embedda = described_class.new(@story, :vimeo_url => {:title => 0, :byline => 0, :portrait => 0, :color => "42b7ed"}).embed
+      expect(embedda).to eq(query_string_embed)
     end
   end
 
