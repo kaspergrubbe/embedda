@@ -47,6 +47,13 @@ You can enforce https URLs (useful on SSL-secured sites):
 => "String heheh <iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/BVtYSy83XXw\" frameborder=\"0\" allowfullscreen></iframe> yeah"
 ```
 
+You can set video width and height with proper settings:
+
+```ruby
+"http://www.youtube.com/watch?v=BVtYSy83XXw yeah".embedda(video_width: 600, video_height: 300)
+=> "String heheh <iframe width=\"600\" height=\"300\" src=\"https://www.youtube.com/embed/BVtYSy83XXw\" frameborder=\"0\" allowfullscreen></iframe> yeah"
+```
+
 ## Supported embeds
 
 Currently embedda can embed the following formats:
