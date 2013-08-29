@@ -59,7 +59,7 @@ describe Embedda do
 
     it 'outputs link with proper width and height' do
       @story = "http://www.youtube.com/watch?v=dQw4w9WgXcQ"
-      embedda = described_class.new(@story, video_width: 200, video_height: 400).embed
+      embedda = described_class.new(@story, :video_width => 200, :video_height => 400).embed
       expect(embedda).to eq(horizontal_embed_string)
     end
   end
@@ -108,7 +108,7 @@ describe Embedda do
 
     it 'outputs link with proper width and height' do
       @story = "http://vimeo.com/20241459"
-      embedda = described_class.new(@story, video_width: 200, video_height: 400).embed
+      embedda = described_class.new(@story, :video_width => 200, :video_height => 400).embed
       expect(embedda).to eq(horizontal_embed_string)
     end
   end
