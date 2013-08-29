@@ -116,7 +116,7 @@ describe Embedda do
 
     it 'generates iframe with query string' do
       @story = "http://vimeo.com/20241459"
-      embedda = described_class.new(@story, :vimeo_url => {:title => 0, :byline => 0, :portrait => 0, :color => "42b7ed"}).embed
+      embedda = described_class.new(@story, :vimeo_params => {:title => 0, :byline => 0, :portrait => 0, :color => "42b7ed"}).embed
       expect(embedda).to eq(query_string_embed)
     end
 

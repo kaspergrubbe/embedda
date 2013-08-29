@@ -4,11 +4,11 @@ require 'uri'
 class Embedda
   module Filters
     class Vimeo
-      def initialize(protocol, width, height, vimeo_url)
+      def initialize(protocol, width, height, vimeo_params)
         @protocol = protocol
         @width    = width
         @height   = height
-        @vimeo_url= vimeo_url
+        @vimeo_params= vimeo_params
       end
 
       def process(string)
@@ -27,7 +27,7 @@ class Embedda
         url = URI.parse("http://player.vimeo.com/")
         url.scheme = @protocol
         url.path   = "/video/#{token}"
-        url.query  = Rack::Utils.build_query @vimeo_url if @vimeo_url
+        url.query  = Rack::Utils.build_query @vimeo_params if @vimeo_params
         url.to_s
       end
 
