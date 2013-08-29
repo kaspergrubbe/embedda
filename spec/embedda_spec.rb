@@ -65,8 +65,9 @@ describe Embedda do
   end
 
   context "Vimeo-link" do
-    let(:embed_string) { '<iframe src="http://player.vimeo.com/video/20241459" width="500" height="281" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>' }
-    let(:https_embed_string) { '<iframe src="https://player.vimeo.com/video/20241459" width="500" height="281" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>' }
+    let(:embed_string) { '<iframe src="http://player.vimeo.com/video/20241459" width="560" height="315" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>' }
+    let(:https_embed_string) { embed_string.gsub("http", "https") }
+    let(:horizontal_embed_string) { embed_string.gsub("560", "200").gsub("315", "400") }
 
     it "should embed when text have a link" do
       @story = "http://vimeo.com/20241459"
@@ -104,6 +105,12 @@ describe Embedda do
       @story = "http://vimeo.com/20241459"
       expect(described_class.new(@story, :ssl => true).embed).to eq(https_embed_string)
     end
+
+    it 'outputs link with proper width and height' do
+      @story = "http://vimeo.com/20241459"
+      embedda = described_class.new(@story, video_width: 200, video_height: 400).embed
+      expect(embedda).to eq(horizontal_embed_string)
+    end
   end
 
   context "Soundcloud-link" do
@@ -136,7 +143,7 @@ describe Embedda do
   context "All embeds in one string" do
       let(:youtube)         { '<iframe width="560" height="315" src="http://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allowfullscreen></iframe>' }
       let(:youtube_link)    { 'http://www.youtube.com/watch?v=dQw4w9WgXcQ' }
-      let(:vimeo)           { '<iframe src="http://player.vimeo.com/video/20241459" width="500" height="281" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>' }
+      let(:vimeo)           { '<iframe src="http://player.vimeo.com/video/20241459" width="560" height="315" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>' }
       let(:vimeo_link)      { 'http://vimeo.com/20241459' }
       let(:soundcloud)      { '<iframe width="100%" height="166" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A%2F%2Fsoundcloud.com%2Fflume-1%2Fflume-left-alone-bobby-tank&color=ff6600&amp;auto_play=false&amp;show_artwork=false"></iframe>' }
       let(:soundcloud_link) { 'https://soundcloud.com/flume-1/flume-left-alone-bobby-tank' }

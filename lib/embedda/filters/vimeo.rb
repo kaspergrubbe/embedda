@@ -16,7 +16,7 @@ class Embedda
       private
 
       def player(token)
-        %Q{<iframe src="#{@protocol}://player.vimeo.com/video/#{token}" width="500" height="281" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>}
+        %Q{<iframe src="#{@protocol}://player.vimeo.com/video/#{token}" width="#{@width}" height="#{@height}" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>}
       end
     end
   end
