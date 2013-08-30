@@ -1,4 +1,7 @@
 require "spec_helper"
+require "rack"
+require "uri"
+
 require "embedda"
 
 describe Embedda do
@@ -116,8 +119,10 @@ describe Embedda do
 
     it 'generates iframe with query string' do
       @story = "http://vimeo.com/20241459"
-      embedda = described_class.new(@story, :vimeo_params => {:title => 0, :byline => 0, :portrait => 0, :color => "42b7ed"}).embed
-      expect(embedda).to eq(query_string_embed)
+      vimeo_params = {:title => 0, :byline => 0, :portrait => 0, :color => "42b7ed"}
+      embedda = described_class.new(@story, :vimeo_params => vimeo_params).embed
+      vimeo_expected_params = {"title" => "0", "byline" => "0", "portrait" => "0", "color" => "42b7ed"}
+      Rack::Utils.parse_query( URI.parse(embedda.split('"')[1]).query ).should == vimeo_expected_params
     end
 
     it 'generates iframe without height attribute when height is falsy' do
