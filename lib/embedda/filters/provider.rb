@@ -14,7 +14,7 @@ class Embedda
       def get(filter_name)
         case filter_name
         when :vimeo
-          Vimeo.new(protocol, video_width, video_height)
+          Vimeo.new(protocol, video_width, video_height, vimeo_params)
         when :youtube
           Youtube.new(protocol, video_width, video_height)
         when :soundcloud
@@ -36,6 +36,10 @@ class Embedda
 
       def video_height
         options.fetch(:video_height, 315)
+      end
+
+      def vimeo_params
+        options.fetch(:vimeo_params, nil)
       end
 
     end
