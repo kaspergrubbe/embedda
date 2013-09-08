@@ -3,7 +3,7 @@ $:.push File.expand_path("../lib", __FILE__)
 
 Gem::Specification.new do |gem|
   gem.name        = "embedda"
-  gem.version     = '0.0.6'
+  gem.version     = '0.0.7'
   gem.authors     = ["Kasper Grubbe",'Christian Takle']
   gem.email       = ["kaspergrubbe@gmail.com"]
   gem.homepage    = "http://github.com/kaspergrubbe/embedda"
