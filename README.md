@@ -19,7 +19,20 @@ And remember to `bundle`
 
 ## Usage
 
-This gem adds `String#embedda` to Ruby strings. You use it like this:
+If you want to extend Ruby `String#embedda` add the following.
+
+```ruby
+require 'embedda'
+
+class String
+  def embedda(options = {})
+    Embedda.new(self, options).embed
+  end
+end
+```
+ 
+Its best practice not to extend core objects and use the Embedda class itself.
+Examples are written with the `String` extended. You use it like this:
 
 ```ruby
 "String heheh http://www.youtube.com/watch?v=BVtYSy83XXw yeah".embedda
